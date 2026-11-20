@@ -1,38 +1,18 @@
 # Git a Vagrant – první Linux server
 
-Úvodní samostatná práce z předmětu **Operační systémy (OSY)** pro **3. I** na [SPOŠ Dvůr Králové nad Labem](https://www.sposdk.cz/).
-
-Vyberte si Linuxovou distribuci a pomocí Vagrantu si připravte vlastní virtuální server. Jeho konfiguraci uložte do svého repozitáře v GitHub Classroom, abyste prostředí mohli znovu vytvořit i na jiném počítači.
-
-![Git, Vagrant a Linux – naše první virtuální laboratoř](./Images/git-vagrant.png)
+Zkopíroval jsem si z githubu
 
 ## 1. Příprava repozitáře
 
-- Přijměte zadání v GitHub Classroom pomocí odkazu od vyučujícího.
-- Naklonujte si **svůj studentský repozitář** do počítače a otevřete jej v editoru.
-- Ověřte, že máte k dispozici Git, Vagrant a VirtualBox.
+Smazal jsem zbytečné soubory a přejmenoval jsem Vagrantfile-debian na Vagrantfile
 
 ## 2. Vyberte si distribuci a připravte server
 
-- V ročníkovém projektu otevřete adresář [Vagrant s příklady jednotlivých VM](https://github.com/sposdknl/2026-sposdk-osy/tree/main/Vagrant).
-- Vyberte si jednu **Linuxovou distribuci**, například **Debian 13**. Příklady pro FreeBSD nejsou Linuxové distribuce.
-- V kořeni svého repozitáře vytvořte adresář pro svůj server, například `srv01`.
-- Do něj zkopírujte konfiguraci vybrané distribuce a pojmenujte ji přesně **`Vagrantfile`**, bez přípony. Pro Debian 13 použijte soubor [Vagrantfile-debian](https://github.com/sposdknl/2026-sposdk-osy/blob/main/Vagrant/Vagrantfile-debian).
-- Prohlédněte si konfiguraci: najděte název boxu, velikost RAM, počet CPU a jméno virtuálního serveru. Ve vzoru pro Debian 13 je box `bento/debian-13`.
-
-> Kopírujete konfiguraci virtuálního stroje, nikoli instalační ISO. Obraz systému si Vagrant stáhne při prvním spuštění.
+Debian
 
 ## 3. Ošetřete soubory, které do Gitu nepatří
 
-V kořeni repozitáře vytvořte soubor **`.gitignore`** a vložte do něj pravidlo:
 
-```gitignore
-.vagrant/
-```
-
-Pokud už soubor existuje, pravidlo zkontrolujte a případně doplňte. Toto pravidlo ignoruje adresáře `.vagrant` i uvnitř složek jednotlivých serverů, například `srv01/.vagrant/`.
-
-Vagrant do `.vagrant/` ukládá místní stav virtuálního stroje. Tento adresář se do Gitu **neodevzdává**. Naopak soubory `.gitignore` a `srv01/Vagrantfile` do repozitáře patří.
 
 ## 4. Spusťte svůj server
 
@@ -55,31 +35,24 @@ Z virtuálního serveru se odhlaste příkazem `exit`. Po dokončení práce mů
 
 ## 5. Vygenerujte kontrolní kód na serveru
 
-Přihlaste se do serveru příkazem `vagrant ssh`. Následující příkazy spusťte **uvnitř virtuálního serveru**, ve svém domovském adresáři. Skript nevyžaduje `sudo`.
+- **Distribuce a verze:** Debian GNU/Linux 13 (trixie)
+- **Použitý Vagrant box:** `bento/debian-13`
+- **Adresář serveru:** `srv01`
+- **Výsledek spuštění a přihlášení:** Virtuální server se úspěšně spustil příkazem `vagrant up` a přihlášení přes `vagrant ssh` funguje bez problémů.
+- **Případné problémy a jejich řešení:** Ve virtuálním stroji nefungovalo stažení ověřovacího skriptu z GitHubu kvůli chybě překladu DNS (`Could not resolve host`). Skript byl proto zkopírován a spuštěn lokálně ze sdílené složky `/vagrant`.
+- **Kontrolní kód a záznam ze serveru:**
 
-Stáhněte si [ověřovací skript](./overeni-serveru.sh):
+**Kontrolní kód:** `SPOS-3I-b36011c57d69c79e6a2787327788e13e35381f134ebb6b7c08678b973e7e3a49`
 
-```bash
-cd ~
-curl -fL https://raw.githubusercontent.com/sposdknl/git-vagrant/main/overeni-serveru.sh -o overeni-serveru.sh
+```text
+Úloha: git-vagrant / SPOŠ / 3. I / v1
+Distribuce: Debian GNU/Linux 13 (trixie)
+Hostname: debian13
+Kernel: 6.12.48+deb13-amd64
+Virtualizace: oracle
+Čas UTC: 2026-11-20T07:56:01Z
+Náhodné ID: 6f47f04f-39c8-4dad-8828-8d9bf01b29c7
 ```
-
-Pokud nemáte `curl`, můžete použít `wget`:
-
-```bash
-wget -O overeni-serveru.sh https://raw.githubusercontent.com/sposdknl/git-vagrant/main/overeni-serveru.sh
-```
-
-Prohlédněte si skript a spusťte jej bez argumentů:
-
-```bash
-cat overeni-serveru.sh
-bash overeni-serveru.sh
-```
-
-Skript ověří Linux a rozpoznanou virtualizaci a vypíše unikátní kontrolní kód i záznam s distribucí, hostname, kernelem a časem. **Celý vypsaný Markdown blok (kód i záznam) vložte do části Moje řešení.** Každé spuštění vytvoří nový kód; odevzdejte jeden odpovídající pár kódu a záznamu.
-
-Kód slouží jako kontrolní záznam pro vyučujícího. Veřejný skript nemůže zaručit pravost výsledku ani sám prokázat, že VM vznikla Vagrantem; součástí odevzdání proto zůstává funkční `Vagrantfile` a případné předvedení serveru.
 
 ## 6. Bonus: vlastní tematický obrázek
 
@@ -88,7 +61,7 @@ Kód slouží jako kontrolní záznam pro vyučujícího. Veřejný skript nemů
 - Nahraďte úvodní obrázek v tomto README odkazem na svůj soubor. Upravte také jeho alternativní popis:
 
 ```markdown
-![Moje virtuální Linuxová laboratoř](./Images/muj-linux-server.png)
+![Moje virtuální Linuxová laboratoř](./Images/Pejsek.png)
 ```
 
 - Do části **Moje řešení** doplňte použitý AI nastroj a zadání (prompt).
@@ -96,37 +69,10 @@ Kód slouží jako kontrolní záznam pro vyučujícího. Veřejný skript nemů
 
 ## 7. Uložte a odevzdejte práci
 
-- Do části **Moje řešení** níže doplňte zvolenou distribuci, adresář serveru a výsledek prvního spuštění.
-- V kořeni repozitáře ověřte ignorování místních dat:
-
-Pokud plníte bonus, přidejte vlastní obrázek příkazem `git add Images/muj-linux-server.png` (upravte podle názvu svého souboru).
-
-Pro příklad s adresářem `srv01` uložte změny a odešlete je na GitHub:
-
-```bash
-git add README.md .gitignore srv01/Vagrantfile
-git commit -m "Priprava prvniho Linux serveru ve Vagrantu"
-git push
-```
-
-Použili-li jste jiné jméno adresáře, upravte cesty v příkazech. Na GitHubu ověřte, že jsou změny ve vašem studentském repozitáři skutečně vidět.
 
 ### Očekávaná struktura
 
 ```text
-.
-├── README.md
-├── .gitignore
-├── overeni-serveru.sh
-├── LICENSE
-├── Vagrant
-├── Images/
-│   └── git-vagrant.png
-└── srv01/
-    └── Vagrantfile
-```
-
-Adresář `srv01/.vagrant/` vznikne pouze lokálně při práci s Vagrantem a nebude součástí odevzdaného repozitáře.
 
 ### Kontrola před odevzdáním
 
@@ -139,13 +85,6 @@ Adresář `srv01/.vagrant/` vznikne pouze lokálně při práci s Vagrantem a ne
 
 ## Moje řešení
 
-- **Distribuce a verze:** doplňte
-- **Použitý Vagrant box:** doplňte
-- **Adresář serveru:** doplňte
-- **Výsledek spuštění a přihlášení:** doplňte
-- **Případné problémy a jejich řešení:** doplňte
-- **Kontrolní kód a záznam ze serveru:** sem vložte celý Markdown blok vypsaný skriptem
-- **Bonus – AI obrázek a použitý prompt:** doplňte, pokud plníte bonus
 
 ## Nápověda a odkazy
 
